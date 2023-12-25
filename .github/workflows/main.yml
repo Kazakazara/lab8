@@ -16,10 +16,10 @@ jobs:
         dotnet-version: '5.0'
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore TestProjectN1
 
     - name: Build
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release TestProjectN1
 
     - name: Run Tests
-      run: dotnet test --configuration Release --no-build
+      run: dotnet test --configuration Release --no-build TestProjectN1
