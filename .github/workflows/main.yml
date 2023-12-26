@@ -37,7 +37,7 @@ jobs:
       if: success()
 
     - name: Generate HTML Report
-      run: .\tools\ReportGenerator "-reports:$env:AGENT_WORKFOLDER\_work\$env:BUILD_REPOSITORY_NAME\s\TestProjectN1\TestProjectN1\TestResults\coverage.cobertura.xml" "-targetdir:$env:AGENT_WORKFOLDER\_work\$env:BUILD_REPOSITORY_NAME\s\coverage" -reporttypes:HtmlInline_AzurePipelines
+      run: dotnet .\tools\ReportGenerator\ReportGenerator.dll "-reports:$env:AGENT_WORKFOLDER\_work\$env:BUILD_REPOSITORY_NAME\s\TestProjectN1\TestProjectN1\TestResults\coverage.cobertura.xml" "-targetdir:$env:AGENT_WORKFOLDER\_work\$env:BUILD_REPOSITORY_NAME\s\coverage" -reporttypes:HtmlInline_AzurePipelines
       if: success()
 
     - name: Upload HTML Report
