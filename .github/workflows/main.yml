@@ -37,7 +37,7 @@ jobs:
       if: success()
 
     - name: Generate HTML Report
-      run: ./tools/ReportGenerator "-reports:../TestResults/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:HtmlInline_AzurePipelines
+      run: .\tools\ReportGenerator "-reports:$(Agent.WorkFolder)\_work\$(Build.Repository.Name)\s\TestProjectN1\TestProjectN1\TestResults\coverage.cobertura.xml" "-targetdir:$(Agent.WorkFolder)\_work\$(Build.Repository.Name)\s\coverage" -reporttypes:HtmlInline_AzurePipelines
       if: success()
 
     - name: Upload HTML Report
