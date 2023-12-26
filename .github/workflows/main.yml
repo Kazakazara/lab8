@@ -25,7 +25,9 @@ jobs:
       run: dotnet build --configuration Release TestProjectN1
 
     - name: Run Tests and Generate XML Report
-      run: dotnet test --configuration Release --no-build --logger "nunit;LogFilePath=test-results.xml"
+      run: |
+        cd TestProjectN1
+        dotnet test --configuration Release --no-build --logger "nunit;LogFilePath=../test-results.xml"
 
     - name: Upload Test Results
       if: always()
