@@ -27,8 +27,8 @@ jobs:
     - name: Run Tests and Generate XML Report
       run: |
         cd TestProjectN1
-        dotnet test --configuration Release --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../TestResults/ /p:UseSourceLink=true
-        dotnet test --configuration Release --no-build --logger:"nunit;LogFilePath=../test-results.xml"
+        dotnet test --configuration Release --no-build /p:UseNUnitLogger=true /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../TestResults/ /p:UseSourceLink=true
+        dotnet test --configuration Release --no-build
 
     - name: Upload Test Results
       if: always()
