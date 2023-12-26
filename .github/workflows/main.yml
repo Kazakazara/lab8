@@ -31,12 +31,11 @@ jobs:
         dotnet test --configuration Release --no-build
 
     - name: Install ReportGenerator
-      run: dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.8.12
+      run: dotnet tool install reportgenerator.tool --version 4.8.12 --tool-path ./tools
       if: success()
 
     - name: Generate HTML Report
-      run: |
-        dotnet reportgenerator "-reports:../TestResults/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:HtmlInline_AzurePipelines
+      run: ./tools/reportgenerator "-reports:../TestResults/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:HtmlInline_AzurePipelines
       if: success()
 
     - name: Upload HTML Report
