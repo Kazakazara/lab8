@@ -32,8 +32,8 @@ jobs:
 
     - name: Install ReportGenerator
       run: |
-        wget https://github.com/danielpalme/ReportGenerator/releases/download/v4.8.12/ReportGenerator_4.8.12.zip -O reportgenerator.zip
-        unzip -q reportgenerator.zip -d ./tools
+        Invoke-WebRequest -Uri https://github.com/danielpalme/ReportGenerator/releases/download/v4.8.12/ReportGenerator_4.8.12.zip -OutFile reportgenerator.zip
+        Expand-Archive -Path .\reportgenerator.zip -DestinationPath .\tools
       if: success()
 
     - name: Generate HTML Report
