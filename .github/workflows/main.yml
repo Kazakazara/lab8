@@ -1,47 +1,22 @@
 name: Run Tests
-
-on:
-  push:
-    branches:
-      - main
-
+on: [push]
 jobs:
   test:
     runs-on: windows-latest
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: '6.0'
-
+      
     - name: Restore dependencies
       run: dotnet restore TestProjectN1
 
     - name: Build
       run: dotnet build --configuration Release TestProjectN1
 
-    - name: Run Tests and Generate XML Report
-      run: |
-        cd TestProjectN1
-        dotnet test --configuration Release --no-build --logger "console;verbosity=detailed" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../TestResults/ /p:UseSourceLink=true
-        dotnet test --configuration Release --no-build
 
-    - name: Install ReportGenerator
-      run: |
-        Invoke-WebRequest -Uri https://github.com/danielpalme/ReportGenerator/releases/download/v4.8.12/ReportGenerator_4.8.12.zip -OutFile reportgenerator.zip
-        Expand-Archive -Path .\reportgenerator.zip -DestinationPath .\tools
-      if: success()
-
-    - name: Generate HTML Report
-      run: dotnet .\tools\ReportGenerator\ReportGenerator.dll "-reports:$env:AGENT_WORKFOLDER\_work\$env:BUILD_REPOSITORY_NAME\s\TestProjectN1\TestProjectN1\TestResults\coverage.cobertura.xml" "-targetdir:$env:AGENT_WORKFOLDER\_work\$env:BUILD_REPOSITORY_NAME\s\coverage" -reporttypes:HtmlInline_AzurePipelines
-      if: success()
-
-    - name: Upload HTML Report
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-report
-        path: coverage
+    - name: Run Tests
+      run: dotnet test --configuration Release --no-build TestProjectN1
