@@ -31,11 +31,13 @@ jobs:
         dotnet test --configuration Release --no-build
 
     - name: Install ReportGenerator
-      run: dotnet tool install reportgenerator.tool --version 4.8.12 --tool-path ./tools
+      run: |
+        wget https://github.com/danielpalme/ReportGenerator/releases/download/v4.8.12/ReportGenerator_4.8.12.zip -O reportgenerator.zip
+        unzip -q reportgenerator.zip -d ./tools
       if: success()
 
     - name: Generate HTML Report
-      run: ./tools/reportgenerator "-reports:../TestResults/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:HtmlInline_AzurePipelines
+      run: ./tools/ReportGenerator "-reports:../TestResults/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:HtmlInline_AzurePipelines
       if: success()
 
     - name: Upload HTML Report
